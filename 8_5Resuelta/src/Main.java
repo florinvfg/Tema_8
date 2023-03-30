@@ -9,11 +9,11 @@ Crear la clase abstracta Instrumento,que almacena en una tabla las notas musical
  */
 
  public class Main {
-    public static void main(String[] args, Object nota) {
+    public static void main(String[] args) {
         Nota cancion[] = {Nota.DO, Nota.SI, Nota.RE, Nota.SOL, Nota.FA} ;
         Piano p = new Piano();
-        for (Nota nota2 : cancion) {//añadimos las notas al piano
-            p.addNota(nota2);
+        for (Nota nota : cancion) {//añadimos las notas al piano
+            p.addNota(nota);
         }        
         p.interpretar ();
     }
