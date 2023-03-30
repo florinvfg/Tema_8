@@ -1,26 +1,58 @@
 
 
-public class HoraExacta extends Hora { //hereda de Hora
-    //resto de la implementacion de la clase Hora
-    /*Reimplentaremos (overriding)el metodo equals() heredado de la clase Object,
-    para comparar dos horas,que seran iguales si sus horas,minutos y segundos son iguales.
-    La hoora con la que tenemos que comparar se pasa como un objeto de la clase Object,que
-    tendremos que convertir (cast) a HoraExacta.
-     * 
-     */
-    @Override
-    public boolean equals(Object o) { 
-        HoraExacta otroReloj = (HoraExacta) o; /*el mismo objeto esta referenciado 
-        como Object (con el parametro o) y como HoraExacta (con la variable otroReloj).*/
-        boolean iguales;
-        if (this.hora == otroReloj.hora //si las horas son iguales 
-        && this.minutos == otroReloj.minutos //y los minutos son iguales
-        && this.segundos == otroReloj.segundos ) {//y los segundos son iguales
-            iguales = true; //son iguales
-        } else {
-            iguales = false; //no son iguales
+
+    public class HoraExacta extends Hora { //heredamos de la clase Hora
+        private static boolean correcto = false;
+        protected int segundos;
+        public HoraExacta (int hora, int minutos, int segundos) {
+            super(hora, minutos); //aprovechamos el constructor de la superclase
+            this.segundos = segundos; //permitiria asignar cualquier valor a los segundos
+        if (!setSegundos(segundos)) { //mejor usar el metodo para asignar valores
+            System.out.println("segundos incorrectos ");
+    
         }
-        return iguales;
+        
+        }
+        //añadimos un metodo que asigna los segundos
+        public boolean setSegundos(int segundos) {
+            this.segundos = segundos;
+            if (0 <= segundos && segundos < 60) { // si esta en rango valido
+            this.segundos = segundos; //modificamos los segundos
+            correcto = true;
+        }
+       return correcto;
+    
+    }
+    @Override //sustituimos el metodo para incrementar segundos en lugar de minutos
+    public void inc() {
+        segundos++;
+        if (segundos > 59) {//si los segundos son mayores que 59
+            segundos = 0; //inicializamos los segundos
+            super.inc(); //+1 con el metodo inc() de la superclase,que incrementa minutos
+    
+        }
+    }
+    @Override //sustituimos toString()para mostrar los segundos
+    public String toString() {
+        String result = super.toString(); // utilizamos toString()de la superclase
+        result += ":" + segundos; //añadimos los segundos
+        return result;
     }
 
-}
+    public boolean equals(Object o) { //metodo que compara los segundos
+        HoraExacta otroReloj = (HoraExacta) o; //obtenemos el objeto otroReloj
+        boolean iguales;
+        if (this.hora == otroReloj.hora() && this.minutos == otroReloj.minutos && this.segundos == otroReloj.segundos) {
+            iguales = true;
+
+        } else {
+            iguales = false;
+        }
+        return iguales;
+
+    }
+    private int hora() {
+        return 0;
+    }
+
+    }
