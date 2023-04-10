@@ -1,0 +1,41 @@
+public  class  Conjunto  extiende  Lista {
+     
+/*El método equals() compara si dos conjuntos tienen los mismos elementos, independientemente del orden.
+Primero comprueba si ambos objetos son iguales haciendo uso del operador == para ver si son la misma instancia.
+  Después comprueba si el objeto pasado como parámetro es una instancia de la clase Conjunto. Si no lo es, devuelve false.
+Luego, crea una instancia del objeto Conjunto con el objeto pasado como parámetro y compara el número de elementos
+de ambos conjuntos. Si no tienen el mismo número de elementos, devuelve false. En caso contrario, recupera la tabla
+  del conjunto actual y comprueba si el otro conjunto contiene cada uno de los elementos. Si hay algun elemento que
+  está en uno de los conjuntos y no en el otro, regresa false. Si ha llegado al final de la tabla y todos los
+  Elementos coincidentes, retorna true.
+Para comprobar si un conjunto contiene un elemento se utiliza el método privado contiene(), que registre la tabla
+del conjunto buscando el elemento. Si lo encuentra, devuelva true. Si llega al final de la tabla sin encontrar el
+  elemento, devuelve false.*/
+  
+  public boolean equals(Object o) {
+    if (o == this) {
+        return true;
+    }
+    if (!(o instanceof Conjunto)) {
+        return false;
+    }
+    Conjunto otroConjunto = (Conjunto) o;
+    if (this.numeroElementos() != otroConjunto.numeroElementos()) {
+        return false;
+    }
+    for (int i = 0; i < tabla.length; i++) {
+        if (!otroConjunto.contiene(tabla[i])) {
+            return false;
+        }
+    }
+    return true;
+}
+
+private boolean contiene(Integer elemento) {
+    for (int i = 0; i < tabla.length; i++) {
+        if (tabla[i].equals(elemento)) {
+            return true;
+        }
+    }
+    return false;
+}
